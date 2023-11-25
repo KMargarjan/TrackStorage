@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { RoundedButton } from "../components/RoundedButton";
+import GenerateQRCode from "../components/GenerateQRCode";
 
 const data = [
   // { id: "1", title: "Card 1", description: "Description for card 1" },
@@ -41,7 +42,7 @@ const MyFlatList = ({ navigation }) => {
       )}
       {showQRPage && (
         <View style={styles.generateQR}>
-          <Text>Generate QR Code page</Text>
+          <GenerateQRCode value="https://www.npmjs.com/package/react-native-qrcode-svg" />
         </View>
       )}
     </View>
