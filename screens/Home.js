@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { RoundedButton } from "../components/RoundedButton";
 import CardList from "../components/CardList";
 
 export default function HomeScreen({ route, navigation }) {
   const selectedAsset = route.params?.item;
+
   return (
     <>
       {!selectedAsset && (

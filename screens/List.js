@@ -1,9 +1,17 @@
-import React from "react";
-import { FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  FlatList,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from "react-native";
+
+import { RoundedButton } from "../components/RoundedButton";
 
 const data = [
-  { id: "1", title: "Card 1", description: "Description for card 1" },
-  { id: "2", title: "Card 2", description: "Description for card 2" },
+  // { id: "1", title: "Card 1", description: "Description for card 1" },
+  // { id: "2", title: "Card 2", description: "Description for card 2" },
 ];
 
 const MyFlatList = ({ navigation }) => {
@@ -13,12 +21,30 @@ const MyFlatList = ({ navigation }) => {
     );
   };
 
+  const [showQRPage, setQRPage] = useState(false);
+
   return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item}
-    />
+    <View style={styles.container}>
+      {data.length > 0 && (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item}
+          style={styles.flatList}
+        />
+      )}
+
+      {!data.length && !showQRPage && (
+        <View style={styles.button}>
+          <RoundedButton title="+" size={70} onPress={() => setQRPage(true)} />
+        </View>
+      )}
+      {showQRPage && (
+        <View style={styles.generateQR}>
+          <Text>Generate QR Code page</Text>
+        </View>
+      )}
+    </View>
   );
 };
 
@@ -29,6 +55,9 @@ const Item = ({ item, onPress }) => (
 );
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   item: {
     padding: 8,
     marginVertical: 4,
@@ -37,8 +66,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#ddd",
   },
+  flatList: {
+    flex: 1,
+  },
   title: {
     fontSize: 22,
+  },
+  button: {
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    padding: 20,
+    paddingBottom: 70,
+  },
+  generateQR: {
+    flex: 1,
   },
 });
 
