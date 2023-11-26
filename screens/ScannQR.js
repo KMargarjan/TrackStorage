@@ -18,11 +18,15 @@ export default function App() {
 
   const navigation = useNavigation();
 
+  const resetScann = () => {
+    setScannedData(null);
+    setScanned(false);
+  };
+
   useEffect(() => {
     const unsubscribeBlur = navigation.addListener("blur", () => {
       // Screen is blurred (navigated away from)
-      setScanned(false);
-      setScannedData(null);
+      resetScann();
     });
 
     return () => {
@@ -32,9 +36,15 @@ export default function App() {
   }, [navigation]);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
     if (data) {
-      setScannedData(data);
+      const scanData = {
+        title: data,
+        date: new Date().toISOString(),
+        id: type,
+        description: "First scanned data",
+      };
+      setScanned(true);
+      setScannedData(scanData);
       setScanned(false);
     }
   };
@@ -43,7 +53,7 @@ export default function App() {
     return (
       <View style={styles.cameraContainer}>
         <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          onBarCodeScanned={!scanned ? handleBarCodeScanned : undefined}
           style={styles.camera}
         />
       </View>
@@ -61,12 +71,10 @@ export default function App() {
       </View>
     );
   }
-  const resetScann = () => {
-    setScannedData(null);
-    setScanned(false);
-  };
 
-  const addToList = () => {};
+  const addToList = () => {
+    navigation.navigate("List", { scannedData });
+  };
 
   return (
     <View style={styles.container}>

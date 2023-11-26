@@ -4,8 +4,9 @@ export default function ScannedData({ data, onCancel, onAddToList }) {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.title}>{data}</Text>
-        <Text style={styles.description}>{data}</Text>
+        <Text style={styles.title}>{data.title}</Text>
+        <Text style={styles.description}>{data.description}</Text>
+        <Text style={styles.description}>{data.date}</Text>
       </View>
 
       <View style={styles.buttonContainer}>

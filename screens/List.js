@@ -7,28 +7,29 @@ import {
   View,
 } from "react-native";
 
-import { RoundedButton } from "../components/RoundedButton";
 import GenerateQRCode from "../components/GenerateQRCode";
 
-const data = [
-  // { id: "1", title: "Card 1", description: "Description for card 1" },
-  // { id: "2", title: "Card 2", description: "Description for card 2" },
-];
+// const data = [
+//   { id: "1", title: "Card 1", description: "Description for card 1" },
+//   { id: "2", title: "Card 2", description: "Description for card 2" },
+// ];
 
-const MyFlatList = ({ navigation }) => {
+const MyFlatList = ({ route, navigation }) => {
+  const [showQRPage, setQRPage] = useState(false);
+  const [listData, setListData] = useState([]);
+
   const renderItem = ({ item }) => {
+    setListData(route.params.scannedData);
     return (
       <Item item={item} onPress={() => navigation.navigate("Home", { item })} />
     );
   };
 
-  const [showQRPage, setQRPage] = useState(false);
-
   return (
     <View style={styles.container}>
-      {data.length > 0 && (
+      {listData.length > 0 && (
         <FlatList
-          data={data}
+          data={listData}
           renderItem={renderItem}
           keyExtractor={(item) => item}
           style={styles.flatList}
