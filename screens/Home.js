@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { RoundedButton } from "../components/RoundedButton";
 import CardList from "../components/CardList";
 
-export default function HomeScreen({ route, navigation }) {
+export default function HomeScreen({ route }) {
   const selectedAsset = route.params?.item;
 
   return (
@@ -13,15 +11,6 @@ export default function HomeScreen({ route, navigation }) {
           <Text style={styles.noAssetMessage}>
             Not monitoring any asset. Tap '+' to add a asset.
           </Text>
-          <View style={styles.button}>
-            <RoundedButton
-              title="+"
-              size={70}
-              onPress={() => {
-                navigation.navigate("List");
-              }}
-            />
-          </View>
         </View>
       )}
       {selectedAsset && (

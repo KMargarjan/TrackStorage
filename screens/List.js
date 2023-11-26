@@ -35,11 +35,6 @@ const MyFlatList = ({ navigation }) => {
         />
       )}
 
-      {!data.length && !showQRPage && (
-        <View style={styles.button}>
-          <RoundedButton title="+" size={70} onPress={() => setQRPage(true)} />
-        </View>
-      )}
       {showQRPage && (
         <View style={styles.generateQR}>
           <GenerateQRCode value="https://www.npmjs.com/package/react-native-qrcode-svg" />
