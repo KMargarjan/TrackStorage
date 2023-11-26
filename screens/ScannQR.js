@@ -18,7 +18,7 @@ export default function App() {
 
   const navigation = useNavigation();
 
-  const resetScann = () => {
+  const resetScan = () => {
     setScannedData(null);
     setScanned(false);
   };
@@ -26,7 +26,7 @@ export default function App() {
   useEffect(() => {
     const unsubscribeBlur = navigation.addListener("blur", () => {
       // Screen is blurred (navigated away from)
-      resetScann();
+      resetScan();
     });
 
     return () => {
@@ -43,7 +43,7 @@ export default function App() {
         id: type,
         description: "First scanned data",
       };
-      setScanned(true);
+
       setScannedData(scanData);
       setScanned(false);
     }
@@ -74,18 +74,19 @@ export default function App() {
 
   const addToList = () => {
     navigation.navigate("List", { scannedData });
+    resetScan()
   };
 
   return (
     <View style={styles.container}>
-      {!scannedData && <Text style={styles.title}>Please scann QR Code</Text>}
+      {!scannedData && <Text style={styles.title}>Please scan QR Code</Text>}
       {!scannedData && renderCamera()}
 
       {scannedData && (
         <Text>
           <ScannedData
             data={scannedData}
-            onCancel={resetScann}
+            onCancel={resetScan}
             onAddToList={addToList}
           />
         </Text>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import CardList from "../components/CardList";
 import {
   FlatList,
   Text,
@@ -9,32 +10,23 @@ import {
 
 import GenerateQRCode from "../components/GenerateQRCode";
 
-// const data = [
-//   { id: "1", title: "Card 1", description: "Description for card 1" },
-//   { id: "2", title: "Card 2", description: "Description for card 2" },
-// ];
-
 const MyFlatList = ({ route, navigation }) => {
   const [showQRPage, setQRPage] = useState(false);
   const [listData, setListData] = useState([]);
 
-  const renderItem = ({ item }) => {
-    setListData(route.params.scannedData);
-    return (
-      <Item item={item} onPress={() => navigation.navigate("Home", { item })} />
-    );
-  };
 
+
+    useEffect(() => {
+    // Check if the route has params and a specific data key
+      if (route.params?.scannedData) {
+      setListData([...listData,route.params.scannedData]);
+    }
+    }, [route.params]);
+  
   return (
     <View style={styles.container}>
-      {listData.length > 0 && (
-        <FlatList
-          data={listData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          style={styles.flatList}
-        />
-      )}
+        <CardList selectedAsset={listData} />
+      
 
       {showQRPage && (
         <View style={styles.generateQR}>
@@ -45,11 +37,11 @@ const MyFlatList = ({ route, navigation }) => {
   );
 };
 
-const Item = ({ item, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={styles.item}>
-    <Text style={styles.title}>{item.title}</Text>
-  </TouchableOpacity>
-);
+// const Item = ({ item, onPress }) => (
+//   <TouchableOpacity onPress={onPress} style={styles.item}>
+//     <Text style={styles.title}>{item.title}</Text>
+//   </TouchableOpacity>
+// );
 
 const styles = StyleSheet.create({
   container: {

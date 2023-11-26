@@ -2,11 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 
 const CardList = ({ selectedAsset }) => {
-  const Card = ({ title, description }) => {
+  const Card = ({ title, description,date }) => {
     return (
       <View style={styles.card}>
         <View style={styles.cardContent}>
           <Text style={styles.title}>{title}</Text>
+           <Text style={styles.description}>{date}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
       </View>
@@ -16,9 +17,9 @@ const CardList = ({ selectedAsset }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        data={[selectedAsset]}
+        data={selectedAsset}
         renderItem={({ item }) => (
-          <Card title={item.title} description={item.description} />
+          <Card title={item.title} description={item.description} date={item.date} />
         )}
         keyExtractor={(item) => item.id}
       />
