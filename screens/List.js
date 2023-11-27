@@ -1,12 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CardList from "../components/CardList";
-import {
-  FlatList,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import GenerateQRCode from "../components/GenerateQRCode";
 
@@ -14,25 +8,16 @@ const MyFlatList = ({ route, navigation }) => {
   const [showQRPage, setQRPage] = useState(false);
   const [listData, setListData] = useState([]);
 
-
-
-    useEffect(() => {
+  useEffect(() => {
     // Check if the route has params and a specific data key
-      if (route.params?.scannedData) {
-      setListData([...listData,route.params.scannedData]);
+    if (route.params?.scannedData) {
+      setListData([...listData, route.params.scannedData]);
     }
-    }, [route.params]);
-  
+  }, [route.params]);
+
   return (
     <View style={styles.container}>
-        <CardList selectedAsset={listData} />
-      
-
-      {showQRPage && (
-        <View style={styles.generateQR}>
-          <GenerateQRCode value="https://www.npmjs.com/package/react-native-qrcode-svg" />
-        </View>
-      )}
+      <CardList selectedAsset={listData} />
     </View>
   );
 };

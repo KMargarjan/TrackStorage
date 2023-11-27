@@ -1,12 +1,27 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { useState } from "react";
 import { RoundedButton } from "../components/RoundedButton";
+import GenerateQRCode from "../components/GenerateQRCode";
 
 export default function SettingsScreen() {
+  const [showQRPage, setShowQRPage] = useState();
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
-        <RoundedButton title="+" size={70} onPress={() => setQRPage(true)} />
-      </View>
+      {!showQRPage && (
+        <View style={styles.button}>
+          <RoundedButton
+            title="+"
+            size={70}
+            onPress={() => setShowQRPage(true)}
+          />
+        </View>
+      )}
+
+      {showQRPage && (
+        <View style={styles.generateQR}>
+          <GenerateQRCode value="https://www.npmjs.com/package/react-native-qrcode-svg" />
+        </View>
+      )}
     </View>
   );
 }
