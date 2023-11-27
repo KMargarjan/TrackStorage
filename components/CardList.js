@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import QRCode from "react-native-qrcode-svg";
 
-const CardList = ({ selectedAsset }) => {
+const CardList = ({ selectedAsset ,qrData}) => {
   const Card = ({ title, description,date }) => {
     return (
       <View style={styles.card}>
@@ -9,6 +10,11 @@ const CardList = ({ selectedAsset }) => {
           <Text style={styles.title}>{title}</Text>
            <Text style={styles.description}>{date}</Text>
           <Text style={styles.description}>{description}</Text>
+        </View>
+        <View>
+            {qrData &&<Text>
+        <QRCode value={qrData} />
+      </Text> }
         </View>
       </View>
     );

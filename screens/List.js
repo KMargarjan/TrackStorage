@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import CardList from "../components/CardList";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,Text } from "react-native";
 
-import GenerateQRCode from "../components/GenerateQRCode";
+
 
 const MyFlatList = ({ route, navigation }) => {
   const [showQRPage, setQRPage] = useState(false);
   const [listData, setListData] = useState([]);
+  const [qrData,setQrData] = useState()
 
   useEffect(() => {
     // Check if the route has params and a specific data key
     if (route.params?.scannedData) {
       setListData([...listData, route.params.scannedData]);
     }
+    if (route.params?.newQRData) {
+      const dataToString = JSON.stringify(route.params.newQRData)
+      setQrData(dataToString)
+      setListData([...listData, route.params.newQRData]);
+    }
   }, [route.params]);
 
   return (
     <View style={styles.container}>
-      <CardList selectedAsset={listData} />
+      <CardList selectedAsset={listData} qrData={qrData} />
     </View>
   );
 };

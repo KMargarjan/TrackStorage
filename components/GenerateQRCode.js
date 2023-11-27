@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+import { useNavigation } from "@react-navigation/native";
+import { View, TextInput, StyleSheet, Button } from "react-native";
 
-export default function GenerateQRCode({ navigator }) {
+
+
+export default function GenerateQRCode() {
   const [showGeneratedQR, setShowGeneratedQR] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [qrData, setQrData] = useState();
 
-  const handleAddClick = ({ navigator }) => {
+  const navigation = useNavigation();
+
+  const handleAddClick = () => {
     const newQRData = {
       title: title,
       description: description,
-      created: new Date().toISOString(),
+      date: new Date().toISOString(),
     };
 
     const qrDataToString = JSON.stringify(newQRData);
@@ -20,7 +24,8 @@ export default function GenerateQRCode({ navigator }) {
     setQrData(qrDataToString);
     setShowGeneratedQR(true);
 
-    navigator.navigate("List", qrDataToString);
+    navigation.navigate("List", {newQRData:newQRData});
+
   };
 
   return (
@@ -47,15 +52,7 @@ export default function GenerateQRCode({ navigator }) {
         />
       </View>
 
-      {showGeneratedQR && (
-        <View style={styles.qrContainer}>
-          <Text>Title: {title}</Text>
-          <Text>Description: {description}</Text>
-          <Text style={styles.qr}>
-            <QRCode value={qrData} />
-          </Text>
-        </View>
-      )}
+     
     </View>
   );
 }
