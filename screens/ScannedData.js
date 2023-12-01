@@ -4,9 +4,9 @@ export default function ScannedData({ data, onCancel, onAddToList }) {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.title}>{data.title}</Text>
-        <Text style={styles.description}>{data.description}</Text>
-        <Text style={styles.description}>{data.date}</Text>
+        <Text style={styles.title}>Title: {data.title}</Text>
+        <Text style={styles.description}>Description: {data.description}</Text>
+        <Text style={styles.description}>Scanned at: {data.created}</Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 14,
   },
   description: {
     fontSize: 14,

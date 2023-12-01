@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import ScannedData from "./ScannedData";
 import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -39,9 +40,9 @@ export default function App() {
     if (data) {
       const scanData = {
         title: data,
-        date: new Date().toISOString(),
+        created: moment().format("YYYY-MM-DD HH:mm"),
         id: type,
-        description: "First scanned data",
+        description: "Scanned data",
       };
 
       setScannedData(scanData);
@@ -74,7 +75,7 @@ export default function App() {
 
   const addToList = () => {
     navigation.navigate("List", { scannedData });
-    resetScan()
+    resetScan();
   };
 
   return (

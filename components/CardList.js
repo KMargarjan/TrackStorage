@@ -2,19 +2,21 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
-const CardList = ({ selectedAsset ,qrData}) => {
-  const Card = ({ title, description,date }) => {
+const CardList = ({ selectedAsset, qrData }) => {
+  const Card = ({ title, description, created }) => {
     return (
       <View style={styles.card}>
         <View style={styles.cardContent}>
-          <Text style={styles.title}>{title}</Text>
-           <Text style={styles.description}>{date}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.title}>Title: {title}</Text>
+          <Text style={styles.description}>Description: {description}</Text>
+          <Text style={styles.description}>Created: {created}</Text>
         </View>
         <View>
-            {qrData &&<Text>
-        <QRCode value={qrData} />
-      </Text> }
+          {qrData && (
+            <Text>
+              <QRCode value={qrData} />
+            </Text>
+          )}
         </View>
       </View>
     );
@@ -25,7 +27,11 @@ const CardList = ({ selectedAsset ,qrData}) => {
       <FlatList
         data={selectedAsset}
         renderItem={({ item }) => (
-          <Card title={item.title} description={item.description} date={item.date} />
+          <Card
+            title={item.title}
+            description={item.description}
+            created={item.created}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
@@ -36,6 +42,8 @@ const CardList = ({ selectedAsset ,qrData}) => {
 // Styles
 const styles = StyleSheet.create({
   card: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "#fff",
     borderRadius: 8,
     marginVertical: 5,
@@ -48,11 +56,10 @@ const styles = StyleSheet.create({
     elevation: 3, // for Android
   },
   cardContent: {
-    // Additional styles if needed
+    flex: 1,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 14,
   },
   description: {
     fontSize: 14,

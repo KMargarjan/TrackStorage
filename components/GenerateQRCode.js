@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, TextInput, StyleSheet, Button } from "react-native";
-
-
+import moment from "moment";
 
 export default function GenerateQRCode() {
   const [showGeneratedQR, setShowGeneratedQR] = useState(false);
@@ -16,16 +15,17 @@ export default function GenerateQRCode() {
     const newQRData = {
       title: title,
       description: description,
-      date: new Date().toISOString(),
+      created: moment().format("YYYY-MM-DD HH:mm"),
     };
 
     const qrDataToString = JSON.stringify(newQRData);
 
     setQrData(qrDataToString);
     setShowGeneratedQR(true);
+    setTitle("");
+    setDescription("");
 
-    navigation.navigate("List", {newQRData:newQRData});
-
+    navigation.navigate("List", { newQRData: newQRData });
   };
 
   return (
@@ -51,8 +51,6 @@ export default function GenerateQRCode() {
           color="#841584"
         />
       </View>
-
-     
     </View>
   );
 }
